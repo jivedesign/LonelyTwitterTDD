@@ -39,7 +39,7 @@ public class LonelyTwitterActivity extends Activity {
 		oldTweetsList.setAdapter(adapter);
 	}
 
-	public void save(View v) {
+	public void save(View v) throws Exception {
 		String text = bodyText.getText().toString();
 		AbstractTweet tweet;
 

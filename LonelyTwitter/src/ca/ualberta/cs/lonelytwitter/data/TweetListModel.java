@@ -1,6 +1,8 @@
 package ca.ualberta.cs.lonelytwitter.data;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import ca.ualberta.cs.lonelytwitter.AbstractTweet;
@@ -22,22 +24,39 @@ public class TweetListModel {
 	 * 
 	 * @param tweet
 	 *            Tweet to be appended to this list
+	 * @throws Exception 
 	 */
-	public void addTweet(AbstractTweet tweet) {
+	public void addTweet(AbstractTweet tweet) throws Exception {
 		// TODO: Add only when it is not a duplicate
-		tweets.add(tweet);
+		
+		if (hasTweet(tweet)){
+			throw new Exception("Tweets already exists."); 
+		}
+		else {
+			tweets.add(tweet);
+		}
 	}
 
+	
+	
+	
+	
 	/**
 	 * Returns the number of tweets in this list.
 	 * 
 	 * @return the number of tweets in this list
 	 */
 	public int getCount() {
-		// TODO: return real count
-		return 0;
+		// TODO: 
+		
+		int count = tweets.size();
+		
+		return count;
 	}
 
+	
+	
+	
 	/**
 	 * Returns true if this list contains the tweet
 	 * 
@@ -47,9 +66,14 @@ public class TweetListModel {
 	 */
 	public boolean hasTweet(AbstractTweet tweet) {
 		// TODO: Find if the tweet already exists
-		return false;
+		
+		return tweets.contains(tweet);
+	
 	}
-
+	
+	
+	
+	
 	/**
 	 * Removes the first occurrence of the specified tweet from this list, if it
 	 * is present.
@@ -59,6 +83,10 @@ public class TweetListModel {
 	 */
 	public void removeTweet(AbstractTweet tweet) {
 		// TODO: Remove tweet
+		if (hasTweet(tweet)) {
+			tweets.remove(tweet);	
+		}
+				
 	}
 
 	/**
@@ -67,10 +95,22 @@ public class TweetListModel {
 	 * 
 	 * @return an array containing the tweets of the list.
 	 */
-	public AbstractTweet[] getTweets() {
+	public List<AbstractTweet> getTweets() {
 		// TODO: return sorted list of tweets
-		return null;
+		
+		Collections.sort(tweets, new Comparator<AbstractTweet>() {
+			public int compare(AbstractTweet lhs, AbstractTweet rhs) {
+				// TODO Auto-generated method stub
+				return lhs.getTweetBody().compareTo(rhs.getTweetBody());
+			}
+			
+		});
+		
+		return tweets;
 	}
+	
+	
+	
 
 	/**
 	 * Returns the list of tweets.
